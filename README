@@ -30,7 +30,7 @@ describe("MyApp.Registration", function () {
     reg.ensureAcceptTermsIsChecked();
 
     expect(view.alertBox().css("display")).not.toEqual("none");
-    expect(view.alertBox()).text().toEqual("Please accept the registration terms.");
+    expect(view.alertBox().text()).toEqual("Please accept the registration terms.");
   });
 
   function stubView() {
