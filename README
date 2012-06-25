@@ -1,4 +1,4 @@
-View is a JavaScript to make it easier to create view objects to be used when isolating the DOM access done by your JavaScript code.
+View is a little JavaScript function to make it easier to create view objects to isolate the DOM access from your core JavaScript code.
 Example:
 
 MyApp.Registration = function (view) {
