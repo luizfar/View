@@ -1,0 +1,42 @@
+View is a JavaScript to make it easier to create view objects to be used when isolating the DOM access done by your JavaScript code.
+Example:
+
+MyApp.Registration = function (view) {
+  var self = {};
+
+  self.ensureAcceptTermsIsChecked = function () {
+    if (!view.acceptTerms().is(":checked")) {
+      view.alertBox().text("Please accept the registration terms.");
+      view.alertBox().show();
+    }
+  };
+
+  return self; 
+};
+
+MyApp.Registration(View({
+  acceptTerms: "#accept_terms",
+  alertBox: "#alert_box"
+}));
+
+
+This includes also a fake-view.js file that makes it easier to create view stubs for your JavaScript tests:
+
+describe("MyApp.Registration", function () {
+  it("should show an alert box if the registration terms are not accepted", function () {
+    var view = stubView();
+    var reg = MyApp.Registration(view);
+
+    reg.ensureAcceptTermsIsChecked();
+
+    expect(view.alertBox().css("display")).not.toEqual("none");
+    expect(view.alertBox()).text().toEqual("Please accept the registration terms.");
+  });
+
+  function stubView() {
+    return FakeView.stub({
+      acceptTerms: FakeView.checkBox({checked: false}),
+      alertBox: FakeView.div()
+    });
+  }
+});
